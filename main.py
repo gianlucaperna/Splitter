@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 import io
-
+import xlsxwriter
 # buffer to use for excel writer
 buffer = io.BytesIO()
 
