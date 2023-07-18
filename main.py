@@ -15,19 +15,19 @@ if __name__ == '__main__':
     #b.title('XLSX Grouper')
     st.write('Dividere persone in diversi gruppi')
     uploaded_file = st.file_uploader("Choose a file", type="xlsx")
-    print("ok")
     #DASHBOARD
     if uploaded_file is not None:
     # To read file as bytes:
         st.write(f'You selected {uploaded_file.name}')
         df = pd.read_excel(uploaded_file).reset_index(drop=True)
-        print("ok2")
+        columns = df.columns
+        col_to_group = st.multiselect("Col where to do sort", columns)
         n_sessione = st.number_input("numero di gruppi", min_value=1, format="%d")
         if st.button("RUN"):
         
-            df["Utente - Luogo"] = df["Utente - Luogo"].str.upper()
-            df["Utente - ID utente"] = df["Utente - ID utente"].str.upper()
-            df = df.sort_values(by="Utente - Luogo")
+            df[col_to_group] = df[col_to_group].str.upper()
+            #df["Utente - ID utente"] = df["Utente - ID utente"].str.upper()
+            df = df.sort_values(by=col_to_group)
             df["session"] =  list(range(1, len(df) + 1))
             df["session"] =  df["session"].apply(lambda x: x % n_sessione)
             df["session"] =  df["session"]+1
