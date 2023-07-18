@@ -21,8 +21,7 @@ if __name__ == '__main__':
         st.write(f'You selected {uploaded_file.name}')
         df = pd.read_excel(uploaded_file).reset_index(drop=True)
         columns = df.columns
-        col_to_group = st.multiselect("Col where to do sort", columns)
-        st.write(f'col_to_group {col_to_group[0]}') 
+        col_to_group = st.selectbox("Col where to do sort", columns, )
         n_sessione = st.number_input("numero di gruppi", min_value=1, format="%d")
         if st.button("RUN"):
         
