@@ -25,9 +25,9 @@ if __name__ == '__main__':
         n_sessione = st.number_input("numero di gruppi", min_value=1, format="%d")
         if st.button("RUN"):
         
-            df[col_to_group[0]] = df[col_to_group[0]].str.upper()
+            df[col_to_group] = df[col_to_group].str.upper()
             #df["Utente - ID utente"] = df["Utente - ID utente"].str.upper()
-            df = df.sort_values(by=col_to_group[0])
+            df = df.sort_values(by=col_to_group)
             df["session"] =  list(range(1, len(df) + 1))
             df["session"] =  df["session"].apply(lambda x: x % n_sessione)
             df["session"] =  df["session"]+1
