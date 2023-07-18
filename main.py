@@ -15,12 +15,13 @@ if __name__ == '__main__':
     #b.title('XLSX Grouper')
     st.write('Dividere persone in diversi gruppi')
     uploaded_file = st.file_uploader("Choose a file", type="xlsx")
-
+    print("ok")
     #DASHBOARD
     if uploaded_file is not None:
     # To read file as bytes:
         st.write(f'You selected {uploaded_file.name}')
         df = pd.read_excel(uploaded_file).reset_index(drop=True)
+        print("ok2")
         n_sessione = st.number_input("numero di gruppi", min_value=1, format="%d")
         if st.button("RUN"):
         
