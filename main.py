@@ -21,14 +21,14 @@ if __name__ == '__main__':
         st.write(f'You selected {uploaded_file.name}')
         df = pd.read_excel(uploaded_file).reset_index(drop=True)
         columns = df.columns
-        col_to_group = st.multiselect("Col where to do sort", columns)[0]
-        st.write(f'col_to_group {col_to_group}') 
+        col_to_group = st.multiselect("Col where to do sort", columns)
+        st.write(f'col_to_group {col_to_group[0]}') 
         n_sessione = st.number_input("numero di gruppi", min_value=1, format="%d")
         if st.button("RUN"):
         
-            df[col_to_group] = df[col_to_group].str.upper()
+            df[col_to_group[0]] = df[col_to_group[0]].str.upper()
             #df["Utente - ID utente"] = df["Utente - ID utente"].str.upper()
-            df = df.sort_values(by=col_to_group)
+            df = df.sort_values(by=col_to_group[0])
             df["session"] =  list(range(1, len(df) + 1))
             df["session"] =  df["session"].apply(lambda x: x % n_sessione)
             df["session"] =  df["session"]+1
