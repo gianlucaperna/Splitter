@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import io
 import xlsxwriter
+import numpy as np
 # buffer to use for excel writer
 buffer = io.BytesIO()
 
@@ -14,7 +15,7 @@ if __name__ == '__main__':
     #IMAGE-UPLOAD FILE
     #b.title('XLSX Grouper')
     st.write('Dividere persone in diversi gruppi')
-    st.write(pd.__version__)
+    st.write(np.__version__)
     uploaded_file = st.file_uploader("Choose a file", type="xlsx")
     #DASHBOARD
     if uploaded_file is not None:
