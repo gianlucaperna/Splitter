@@ -7,7 +7,8 @@ import numpy as np
 buffer = io.BytesIO()
 
 #n_persone = 30
-
+np.float = float
+np.int = int
 
 if __name__ == '__main__':
 
