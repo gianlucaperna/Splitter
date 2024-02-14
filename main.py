@@ -19,6 +19,7 @@ if __name__ == '__main__':
     if uploaded_file is not None:
     # To read file as bytes:
         st.write(f'You selected {uploaded_file.name}')
+        print(type(uploaded_file))
         df = pd.read_excel(uploaded_file).reset_index(drop=True)
         columns = df.columns
         col_to_group = st.selectbox("Colonna da usare per fare ordinamento:", columns )
