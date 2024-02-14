@@ -1,4 +1,4 @@
 xlsxwriter
 openpyxl
 numpy
-pandas
+pandas==2.2.0
