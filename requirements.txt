@@ -1,4 +1,4 @@
 xlsxwriter
 openpyxl
 numpy==1.26.4
-pandas
+pandas=2.0.0
