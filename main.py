@@ -17,6 +17,7 @@ if __name__ == '__main__':
     #b.title('XLSX Grouper')
     st.write('Dividere persone in diversi gruppi')
     st.write(np.__version__)
+    st.write(pd.__version__)
     uploaded_file = st.file_uploader("Choose a file", type="xlsx")
     #DASHBOARD
     if uploaded_file is not None:
