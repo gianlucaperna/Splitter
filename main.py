@@ -37,7 +37,7 @@ if __name__ == '__main__':
             gb["session"] =  gb["session"].apply(lambda x: x % n_sessione)
             gb["session"] =  gb["session"]+1
             df=gb.explode("Utente - ID utente")
-            df = df.sort_values(by="session")
+            df = df.sort_values(by=["session"]+group)
             with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
                 df.to_excel(writer, sheet_name='Sheet1', index=False)
                # Close the Pandas Excel writer and output the Excel file to the buffer
