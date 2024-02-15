@@ -28,13 +28,15 @@ if __name__ == '__main__':
         col_to_group = st.selectbox("Colonna da usare per fare ordinamento:", columns )
         n_sessione = st.number_input("numero di gruppi", min_value=1, format="%d")
         if st.button("RUN"):
-        
-            df[col_to_group] = df[col_to_group].str.upper()
-            #df["Utente - ID utente"] = df["Utente - ID utente"].str.upper()
-            df = df.sort_values(by=col_to_group)
-            df["session"] =  list(range(1, len(df) + 1))
-            df["session"] =  df["session"].apply(lambda x: x % n_sessione)
-            df["session"] =  df["session"]+1
+
+            group = ['Utente - Nome utente', 'Utente - Cognome utente', 'Utente - Luogo ID']
+            df[group] = df[group].apply(lambda x: x.str.upper())
+            gb = df.groupby(group).agg(list).reset_index()
+            gb = gb.sort_values(by=col_to_group)
+            gb["session"] =  list(range(1, len(gb) + 1))
+            gb["session"] =  gb["session"].apply(lambda x: x % n_sessione)
+            gb["session"] =  gb["session"]+1
+            df=gb.explode("Utente - ID utente")
             df = df.sort_values(by="session")
             with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
                 df.to_excel(writer, sheet_name='Sheet1', index=False)
