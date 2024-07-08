@@ -2,3 +2,5 @@ xlsxwriter
 openpyxl
 numpy==1.26.4
 pandas==2.0.0
+zipfile
+
