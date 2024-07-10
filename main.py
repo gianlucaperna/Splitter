@@ -10,13 +10,13 @@ import zipfile
 buffer = io.BytesIO()
 
 
-def template(group):
+def template(group, col_to_group):
     # Percorso al file Excel caricato
     file_path = 'template.xlsx'
 
     # Leggere l'intero file Excel senza specificare un header
     df = pd.read_excel(file_path, header=None)
-    ids = group["Utente - ID utente"]
+    ids = group[col_to_group]
 
     # Aggiungere le nuove righe con l'ID utente al DataFrame
     rows_to_add = []
@@ -103,7 +103,7 @@ if __name__ == '__main__':
             # Ciclo for per chiamare template() e aggiungere i file Excel allo zip
             for group in gb2.groups:
                 # Chiamata alla funzione template per ottenere l'oggetto Workbook
-                wb = template(gb2.get_group(group))  # 'output' può essere None nel contesto di questo esempio
+                wb = template(gb2.get_group(group), col_to_group)  # 'output' può essere None nel contesto di questo esempio
 
                 # Salvataggio del file Excel generato nello zip
                 excel_file_name = f'file_{group}.xlsx'
