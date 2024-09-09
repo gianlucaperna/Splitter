@@ -83,8 +83,8 @@ if __name__ == '__main__':
             gb["session"] =  list(range(1, len(gb) + 1))
             gb["session"] =  gb["session"].apply(lambda x: x % n_sessione)
             gb["session"] =  gb["session"]+1
-            gb = gb.apply(lambda x: x if len(x) <= m else x.head(m))
-            df= gb.explode("Utente - ID utente")
+            df = gb.explode("Utente - ID utente")
+            df = df.groupby("session", group_keys=False).apply(lambda x: x.head(min(len(x), m)))
             df = df.sort_values(by=["session"]+group)
             with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
                 df.to_excel(writer, sheet_name='Sheet1', index=False)
