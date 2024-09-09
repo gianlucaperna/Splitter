@@ -104,8 +104,8 @@ if __name__ == '__main__':
                # Close the Pandas Excel writer and output the Excel file to the buffer
                # writer.save()
 
-            download2 = st.download_button(
-            label="Download data as Excel",
+            download3 = st.download_button(
+            label="Download Scarto",
             data=buffer,
             file_name='Scarto.xlsx',
             mime='application/vnd.ms-excel'
