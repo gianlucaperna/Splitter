@@ -110,7 +110,7 @@ if __name__ == '__main__':
             file_name='Scarto.xlsx',
             mime='application/vnd.ms-excel'
             )
-            gb2 = df.groupby("session")
+            gb2 = df_main.groupby("session")
             # Creazione di un buffer di byte in memoria per lo zip
             buffer = io.BytesIO()
             zipf = zipfile.ZipFile(buffer, 'w')
