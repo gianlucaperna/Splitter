@@ -73,7 +73,7 @@ if __name__ == '__main__':
         columns = df.columns
         col_to_group = st.selectbox("Colonna da usare per fare ordinamento:", columns )
         n_sessione = st.number_input("numero di gruppi", min_value=1, format="%d")
-        n_persone = st.number_input("numero di persone massimo per gruppo", min_value=1, format="%d")
+        m = st.number_input("numero di persone massimo per gruppo", min_value=1, format="%d")
         if st.button("RUN"):
 
             group = ['Utente - Nome utente', 'Utente - Cognome utente', 'Utente - Luogo ID']
