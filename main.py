@@ -83,11 +83,13 @@ if __name__ == '__main__':
             gb["session"] =  list(range(1, len(gb) + 1))
             gb["session"] =  gb["session"].apply(lambda x: x % n_sessione)
             gb["session"] =  gb["session"]+1
-            df = gb.explode("Utente - ID utente")
-            df = df.groupby("session", group_keys=False).apply(lambda x: x.head(min(len(x), m)))
-            df = df.sort_values(by=["session"]+group)
+            df_exploded = gb.explode("Utente - ID utente")
+            df_main = df_exploded.groupby("session", group_keys=False).apply(lambda x: x.head(min(len(x), m))).reset_index(drop=True)
+            scarto = df_exploded.loc[~df_exploded.index.isin(df_main.index)].reset_index(drop=True)
+            # Riordina il DataFrame principale in base alla sessione e alle colonne del gruppo
+            df_main = df_main.sort_values(by=["session"] + group).reset_index(drop=True)
             with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-                df.to_excel(writer, sheet_name='Sheet1', index=False)
+                df_main.to_excel(writer, sheet_name='Sheet1', index=False)
                # Close the Pandas Excel writer and output the Excel file to the buffer
                # writer.save()
 
@@ -95,6 +97,17 @@ if __name__ == '__main__':
             label="Download data as Excel",
             data=buffer,
             file_name='Executed.xlsx',
+            mime='application/vnd.ms-excel'
+            )
+            with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+                scarto.to_excel(writer, sheet_name='Sheet1', index=False)
+               # Close the Pandas Excel writer and output the Excel file to the buffer
+               # writer.save()
+
+            download2 = st.download_button(
+            label="Download data as Excel",
+            data=buffer,
+            file_name='Scarto.xlsx',
             mime='application/vnd.ms-excel'
             )
             gb2 = df.groupby("session")
