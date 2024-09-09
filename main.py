@@ -128,9 +128,15 @@ if __name__ == '__main__':
                 # Chiudi il Workbook dopo averlo salvato nello zip
                 wb.close()
 
+            excel_file_name_scarto = 'file_scarto.xlsx'
+            with pd.ExcelWriter(excel_file_name_scarto, engine='openpyxl') as writer:
+                scarto.to_excel(writer, index=False)
+            
+            # Aggiungi il file Excel del 'scarto' al file zip
+            zipf.write(excel_file_name_scarto)
             # Chiudi lo zip una volta completato
             zipf.close()
-
+            
             # Resetta il buffer per consentire di leggere il suo contenuto
             buffer.seek(0)
             # Creazione di un pulsante di download in Streamlit per scaricare lo zip
