@@ -73,6 +73,7 @@ if __name__ == '__main__':
         columns = df.columns
         col_to_group = st.selectbox("Colonna da usare per fare ordinamento:", columns )
         n_sessione = st.number_input("numero di gruppi", min_value=1, format="%d")
+        n_persone = st.number_input("numero di persone massimo per gruppo", min_value=1, format="%d")
         if st.button("RUN"):
 
             group = ['Utente - Nome utente', 'Utente - Cognome utente', 'Utente - Luogo ID']
@@ -82,7 +83,8 @@ if __name__ == '__main__':
             gb["session"] =  list(range(1, len(gb) + 1))
             gb["session"] =  gb["session"].apply(lambda x: x % n_sessione)
             gb["session"] =  gb["session"]+1
-            df=gb.explode("Utente - ID utente")
+            gb = gb.apply(lambda x: x if len(x) <= m else x.head(m))
+            df= gb.explode("Utente - ID utente")
             df = df.sort_values(by=["session"]+group)
             with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
                 df.to_excel(writer, sheet_name='Sheet1', index=False)
