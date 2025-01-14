@@ -76,7 +76,8 @@ if __name__ == '__main__':
         m = st.number_input("numero di persone massimo per gruppo", min_value=1, format="%d")
         if st.button("RUN"):
 
-            group = ['Utente - Nome utente', 'Utente - Cognome utente', 'Utente - Luogo ID']
+            #group = ['Utente - Nome utente', 'Utente - Cognome utente', 'Utente - Luogo ID']
+            group = ['Utente - Nome utente', 'Utente - Cognome utente', 'Luogo']
             df[group] = df[group].apply(lambda x: x.str.upper())
             gb = df.groupby(group).agg(list).reset_index()
             gb = gb.sort_values(by=col_to_group)
